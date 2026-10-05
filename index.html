@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="WiFi 속도 기록을 한눈에 비교하는 WAVE 프로토타입" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="./assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./styles.css?v=9" />
+  <script defer src="./app.js?v=3"></script>
+  <title>WiFi 비교 — WAVE</title>
+</head>
+<body>
+  <a class="skip-link" href="#networkSection">비교 목록으로 이동</a>
+  <div class="app-shell" id="top">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="WAVE 홈">WAVE<span class="brand-period">.</span></a>
+      <div class="topbar-actions"><span class="preview-status">예시 데이터</span><button class="info-button" id="infoButton" type="button" aria-label="서비스 정보">i</button></div>
+    </header>
+
+    <main class="workspace" id="networkSection">
+      <div class="workspace-intro"><div><h1>WiFi 속도 비교</h1><p>측정한 네트워크를 속도순으로 확인하세요.</p></div><span class="dataset-label" id="networkCount">4개 네트워크</span></div>
+
+      <section class="ranking-section" aria-labelledby="rankingTitle">
+        <div class="ranking-top"><div><h2 id="rankingTitle">비교 목록 <span id="countLabel">4</span></h2><p id="leaderDifference" class="ranking-summary">다운로드 1위 · —</p></div><button class="add-button" id="addButton" type="button"><span aria-hidden="true">＋</span> 측정값 추가</button></div>
+        <div class="metric-tabs" role="group" aria-label="비교 기준"><button class="metric-tab is-active" type="button" data-metric="download" aria-pressed="true">다운로드 <small>Mbps</small></button><button class="metric-tab" type="button" data-metric="upload" aria-pressed="false">업로드 <small>Mbps</small></button><button class="metric-tab" type="button" data-metric="latency" aria-pressed="false">지연시간 <small>ms · 낮을수록 좋음</small></button></div>
+        <div class="ranking-head" aria-hidden="true"><span>네트워크</span><span id="rankingMetricLabel">다운로드 Mbps</span></div>
+        <div class="network-list" id="networkList"></div>
+        <div class="data-note"><span class="note-glyph" aria-hidden="true">i</span><p>표시된 네트워크는 예시입니다. 직접 추가한 측정값은 이 브라우저에 저장됩니다. 웹에서는 주변 WiFi를 자동으로 찾거나 접속 전 속도를 측정할 수 없습니다.</p></div>
+      </section>
+    </main>
+    <footer><span>WAVE<span class="brand-period">.</span></span><span>속도 비교 프로토타입</span></footer>
+  </div>
+
+  <dialog id="addDialog" class="modal"><form id="networkForm" class="modal-panel"><div class="modal-top"><div><h2>측정값 추가</h2></div><button class="close-button" type="button" id="closeDialog" aria-label="닫기">×</button></div><p class="modal-description">현재 연결된 WiFi를 별도 속도 측정 도구로 확인한 뒤 결과를 입력하세요.</p><label>WiFi 이름<input name="name" maxlength="32" placeholder="예: 우리집_5G" required autocomplete="off"></label><div class="field-grid"><label>다운로드 <small>Mbps</small><input name="download" type="number" min="0.1" max="10000" step="0.1" placeholder="245" required></label><label>업로드 <small>Mbps</small><input name="upload" type="number" min="0.1" max="10000" step="0.1" placeholder="92" required></label></div><label>지연시간 <small>ms</small><input name="latency" type="number" min="1" max="10000" step="1" placeholder="12" required></label><p id="formError" class="form-error" role="alert"></p><button type="submit" class="submit-button">목록에 추가 <span aria-hidden="true">↗</span></button></form></dialog>
+  <dialog id="infoDialog" class="modal"><div class="modal-panel info-panel"><div class="modal-top"><div><h2>이 화면에 대해</h2></div><button class="close-button" type="button" id="closeInfo" aria-label="닫기">×</button></div><p>WAVE는 WiFi별 속도 기록을 비교하는 프로토타입입니다. 기본 목록과 수치는 모두 샘플이며, 직접 추가한 기록은 이 브라우저에만 저장됩니다.</p><p>웹 브라우저는 주변 WiFi 목록을 직접 읽거나 각 네트워크에 접속하지 않고 실제 속도를 측정할 수 없습니다.</p><button type="button" class="secondary-button" id="closeInfoBottom">확인</button></div></dialog>
+</body>
+</html>
